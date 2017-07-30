@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Sitzreservierung</title>
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div id = "main" class = "container-fluid" >
+    <div id="dateField" class = "row container">  
+    </div>
+</div>
+
+
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<style>
+    #main {
+        position: absolute;
+        top: 20vh;
+        width: 100%;
+    }
+
+    #dateField {
+        margin: 0 auto;        
+    }
+
+    .btn {
+        font-size: 24px;
+        margin: 2px;
+    }
+
+</style>
+
+<script>
+
+$(document).ready(()=>{
+    //Get dates from server
+    var dates = ["25.1", "26.1", "27.1", "28.1", "28.1", "28.1", "28.1","25.1", "26.1", "27.1", "28.1", "28.1", "28.1", "28.1"]
+    createDateButtons(dates)
+})
+
+
+function createDateButtons(dates) {
+    //create the grid layout depending on how many buttons there are
+    var l = dates.length;
+    var html = ""
+    dates.forEach(function (element) {
+        html += "<button type= \"submit\" class = \"btn btn-primary col-md-3\">"+element+"</button>"
+        console.log(html)
+    }, this)
+    $("#dateField").html(html);
+    //document.getElementById("dateField").innerHTML = html
+}
+
+
+
+</script>
+
+</html>
