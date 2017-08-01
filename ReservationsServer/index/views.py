@@ -1,22 +1,41 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views import generic
+from django.http import JsonResponse
 
-# Create your views here.
+import json
+from datetime import date
+
+from .models import PerformanceDate
+
+# Create your views here
+#returns the first html page (the one on which you select which date)
+def index(response):
+    with open('../dateSelection.html', 'r') as f:
+        s = f.read()
+        return HttpResponse(s)
 
 
 #Gets dates and returns HttpResponse with it.
-#TODO make this here function private and create the button html-thingy in Index() !!!
-def getdates():
-    dates = ["28.1.2019", "29.1.2019", "30.1.2019", "32.1.2019", "33.1.2019", "34.1.2019", "35.1.2019", "36.1.2019"]
-    return HttpResponse(dates)
+def getdates(response, onlyGetDatesInTheFuture = True):
+    dates = PerformanceDate.objects.order_by('datum')
+    #Remove all the passed dates
+    #date.today() < d.datum
+    if onlyGetDatesInTheFuture:
+        dates = dates.filter(datum__gte = date.today())
 
-#returns the first html page (the one on which you select which date)
-def Index(response):
-    with open('../dateSelection.html', 'r') as f:
-        s = f.read()
+    response = []
+    #Make into isoformat to easier create the JavaScript date objects later
+    #for d in dates:
+    #    response.append({"date":d.datum.isoformat(), "allReserved":d.noMoreFreeSeats})
 
-    return HttpResponse(s)
+    for d in dates:
+        response.append(d.datum.isoformat())
+
+    return HttpResponse(JsonResponse(response, safe=False))
+
 
 #does captcha verification
+#and returns contents of the actual seatreservation site, if captcha is valid
 def captcha():
     pass

@@ -14,9 +14,13 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.shortcuts import redirect
+
 import index
 
+
 urlpatterns = [
+    url(r'^$', lambda r:redirect('/index')),
     url(r'^index/', include('index.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]
