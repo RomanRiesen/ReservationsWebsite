@@ -246,7 +246,14 @@ function updateSeatResume (){
     
 var isLandscapeMode = window.innerWidth > window.innerHeight
 //FIXME CREATE FUNCTION. Should only updatr when changed from landscape to portrait or vive-versa!!!!
-//window.onresize = ()=>{var isLandscapeModeNow = window.innerWidth > window.innerHeight; draw()};
+window.onresize = ()=>{
+var isLandscapeModeNow = window.innerWidth > window.innerHeight;
+if(isLandscapeModeNow !== isLandscapeMode){
+	  isLandsapeMode = isLandscapeModeNow
+	  draw()
+	}
+};
+
 
 
 </script>
