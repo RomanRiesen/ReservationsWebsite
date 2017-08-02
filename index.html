@@ -258,7 +258,9 @@ window.onresize = ()=>{
 var isLandscapeModeNow = window.outerWidth > window.outerHeight
 if(isLandscapeModeNow != isLandscapeMode){
 	  isLandscapeMode = isLandscapeModeNow
-	  draw()
+	  setTimeout(
+	   draw,50
+   	)
     }
 };
 
