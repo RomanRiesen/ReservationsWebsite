@@ -12,7 +12,7 @@
 </head>
 
 
-<div id = "main" class = "container-fluid">
+<div id = "main" class = "">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -41,8 +41,8 @@
   </div>
 </nav>
 
-    <div class = "row">
-    <div class = "col-sm-12" style = "text-align: center">
+    <div class = "">
+    <div class = "" style = "">
         <svg id = "svgCanvas" version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         width="100%" height="80vh">
@@ -155,10 +155,9 @@ function main(){
 function draw(){
 
     var svgCanvas = document.getElementById("svgCanvas")
-    var xSize = window.outerWidth * 0.9
-    var ySize = window.outerHeight
-    svgCanvas.width.baseVal.value = xSize
-
+    //FIXME use parents inner element width.
+    //FIXME
+    var xSize = svgCanvas.width.baseVal.value
     var ySize = svgCanvas.height.baseVal.value
 
     $.getJSON("seatsORIGINAL.json", function(json) {
@@ -252,16 +251,18 @@ function updateSeatResume (){
 }
 
 
- var isLandscapeMode = window.outerWidth > window.outerHeight
-//FIXME CREATE FUNCTION. Should only updatr when changed from landscape to portrait or vive-versa!!!!
-window.onresize = ()=>{
-var isLandscapeModeNow = window.outerWidth > window.outerHeight
-if(isLandscapeModeNow != isLandscapeMode){
-	  isLandscapeMode = isLandscapeModeNow
+
+var isLandscapeMode = window.innerWidth > window.innerHeight
+//FIXME CREATE FUNCTION. Should only update when changed from landscape to portrait or vive-versa!!!!
+//FIXME WHICH IS ONLY A H4cK TO A SYMPTOM FROM A MORE FOUNDAMENTAL PROBLEM ELSEWHERE!!!!
+	window.onresize = ()=>{
+//var isLandscapeModeNow = window.innerWidth > window.innerHeight
+//if(isLandscapeModeNow != isLandscapeMode){
+//	  isLandscapeMode = isLandscapeModeNow
 	  setTimeout(
 	   draw,50
    	)
-    }
+//    }
 };
 
 
