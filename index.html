@@ -12,7 +12,7 @@
 </head>
 
 
-<div id = "main" class = "container-fluid">
+<div id = "main" class = "">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -41,8 +41,8 @@
   </div>
 </nav>
 
-    <div class = "row">
-    <div class = "col-sm-12" style = "text-align: center">
+    <div class = "">
+    <div class = "" style = "">
         <svg id = "svgCanvas" version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         width="100%" height="80vh">
@@ -155,10 +155,9 @@ function main(){
 function draw(){
 
     var svgCanvas = document.getElementById("svgCanvas")
-    var xSize = window.innerWidth * 0.9
-    var ySize = window.innerHeight
-    svgCanvas.width.baseVal.value = xSize
-
+    //FIXME use parents inner element width.
+    //FIXME
+    var xSize = svgCanvas.width.baseVal.value
     var ySize = svgCanvas.height.baseVal.value
 
     $.getJSON("seatsORIGINAL.json", function(json) {
@@ -185,7 +184,8 @@ function draw(){
             }
             svgCanvas.appendChild(newElement)
             //if seat in window.selectedSeats make it selected on update
-            //FIXME this wont work if I have one big single page, as I would overwrite the reserved class as well. Solution: cookie or session. Also make a function for selecting and deselecting a seat.
+            //FIXME this wont work if I have one big single page, as I would overwrite the reserved class as well. Solution: cookie or session.
+            //TODO Also make a function for selecting and deselecting a seat.
             if(window.selectedSeats.indexOf(seat.i)>-1){
                 if( classes.indexOf("free") > -1 ){
                     newElement.setAttribute("class", classes.replace("free","selected"))
@@ -221,29 +221,49 @@ function updateSeatResume (){
     if(window.selectedSeats.length > 0){
         $("#continueButton").attr('disabled', false)
     }
+
     var seats = JSON.parse(JSON.stringify(window.selectedSeats))
+
     //remove everything but the number of the seat
     var numberOfSeats = seats.length
     seats = seats.map((seat)=>{return seat.replace ( /\D+/g, '' )})
+
     //sort by seat number
     seats = seats.sort(function(a, b){return parseInt(a)-parseInt(b)})
     var lastSeat = seats.pop()
-    var html = ["Sie sind im Begriff"]
+
+    var html = []
+    html[0] = "Sie sind im Begriff"
     html[1] = "einen Sitz"
     html[2] = "(nummer"
     html[3] = lastSeat+")"
+
     if( window.selectedSeats.length > 1 ){
         //change what needs to be changed if plural is needed.
         html[1] = numberOfSeats+" Sitze"
         html[3] = seats.join(", ")+" und " + lastSeat+")";
     }
+
     html.push("zu reservieren.")
 
     $("#seatResume").html(html.join(" "))
 
 }
 
-window.onresize = draw;
+
+
+var isLandscapeMode = window.innerWidth > window.innerHeight
+//FIXME CREATE FUNCTION. Should only update when changed from landscape to portrait or vive-versa!!!!
+//FIXME WHICH IS ONLY A H4cK TO A SYMPTOM FROM A MORE FOUNDAMENTAL PROBLEM ELSEWHERE!!!!
+	window.onresize = ()=>{
+//var isLandscapeModeNow = window.innerWidth > window.innerHeight
+//if(isLandscapeModeNow != isLandscapeMode){
+//	  isLandscapeMode = isLandscapeModeNow
+	  setTimeout(
+	   draw,50
+   	)
+//    }
+};
 
 
 </script>
