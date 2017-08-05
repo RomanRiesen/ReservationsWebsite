@@ -22,5 +22,6 @@ import index
 urlpatterns = [
     url(r'^$', lambda r:redirect('/index')),
     url(r'^index/', include('index.urls')),
+    url(r'^sitzreservation/', include('sitzreservation.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]

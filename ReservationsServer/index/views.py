@@ -15,12 +15,10 @@ def index(response):
         s = f.read()
         return HttpResponse(s)
 
-
 #Gets dates and returns HttpResponse with it.
 def getdates(response, onlyGetDatesInTheFuture = True):
     dates = PerformanceDate.objects.order_by('datum')
     #Remove all the passed dates
-    #date.today() < d.datum
     if onlyGetDatesInTheFuture:
         dates = dates.filter(datum__gte = date.today())
 
@@ -35,7 +33,8 @@ def getdates(response, onlyGetDatesInTheFuture = True):
     return HttpResponse(JsonResponse(response, safe=False))
 
 
+
 #does captcha verification
 #and returns contents of the actual seatreservation site, if captcha is valid
-def captcha():
+def captcha(response):
     pass

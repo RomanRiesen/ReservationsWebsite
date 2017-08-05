@@ -41,8 +41,11 @@
   </div>
 </nav>
 
-    <div class = "">
-    <div class = "" style = "">
+    <div class = "container-fluid">
+    <div class = "row">
+    <div class = "col-md-1 col-lg-3 col-xl-4">
+    </div>
+    <div class = "col-md-10 col-sm-12 col-lg-6 col-xl-4" style = "">
         <svg id = "svgCanvas" version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         width="100%" height="80vh">
@@ -69,6 +72,9 @@
         </style>
 
     </svg>
+    </div>
+    <div class = "col-md-1 col-lg-3 col-xl-4">
+    </div>
     </div>
 </div>
 
@@ -156,12 +162,14 @@ function draw(){
 
     var svgCanvas = document.getElementById("svgCanvas")
     //FIXME use parents inner element width.
-    //FIXME
     var xSize = svgCanvas.width.baseVal.value
-    var ySize = svgCanvas.height.baseVal.value
-
+    //var ySize = svgCanvas.height.baseVal.value//
+    var ySize = xSize
+    if(xSize > svgCanvas.height.baseVal.value){
+        svgCanvas.height.baseVal.value = xSize
+    }
     $.getJSON("seatsORIGINAL.json", function(json) {
-        var seatRadius = Math.min(ySize/(3*json.length**0.5),
+        var seatRadius = Math.min(ySize/(4.2*json.length**0.5),
                                   xSize/(3*json.length**0.5))
 
         for (var i = 0; i < json.length; i++){

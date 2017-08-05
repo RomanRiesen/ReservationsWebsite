@@ -109,8 +109,6 @@
 
 <script>
 
-    console.log(window.location.href+"getdates")
-
     $.ajax({
         url: window.location.href+"getdates",
         context: document.body,
@@ -125,14 +123,48 @@
         if(dates.length == 0){aler('There are currently no shows planned.')}
         //create the grid layout depending on how many buttons there are
         var l = dates.length;
+
         $("#dateField").css({gridTemplateColumns : "repeat("+Math.floor(l**0.5)+", 1fr)"})
         $("#dateField").css({gridAutoRows : "repeat("+Math.ceil(l**0.5)+", 1fr)"})
+
         var html = ""
+        var id = 1
         dates.forEach(function (element) {
-           date = new Date(element)
-           html += "<button type= \"submit\" class = \"btn btn-primary\">"+date.toLocaleDateString()+"</button>"
+            date = new Date(element)
+            //FIXME inject within django???
+            html +=
+            "<button type = \"submit\""+
+            "id=\""+"buttonNr"+id++ +"\""+
+            "onclick=\"submitDate(id)\""+
+            "class = \"btn btn-primary\">"+
+            date.toLocaleDateString()+
+            "</button>"
         }, this)
-        $("#dateField").html(html);
+
+        $("#dateField").append(html);
+    }
+
+    function submitDate(id){
+        //FIXME this is horrible
+        //console.log($("#"+id).html())
+        var date = ($("#"+id).html())
+
+        var request = $.ajax({
+            method: "POST",
+            url: window.location.href+"sitzreservation",
+            context: document.body,
+            data: { date: date },
+            success : function(text)
+             {
+                 document.body = text
+             }
+        })
+
+        request.fail(function( jqXHR, textStatus ) {
+            console.log(jqXHR)
+            alert( "Something went horribly wrong: \n"+
+            "\nstatus: "+jqXHR.status+" ("+jqXHR.statusText+")");
+        });
     }
 
 </script>
