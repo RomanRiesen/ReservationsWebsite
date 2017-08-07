@@ -53,18 +53,29 @@
                 <div id = "seatResume">
                 </div>
                 <br>
-                <form>
+                <!--<form action="reserved" method="post">{% csrf_token %}-->
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email Adresse</label>
-                        <input type="email" class="form-control" id="exampleInputEmail"
-                        aria-describedby="emailHelp" placeholder="z.b. lemarc.erbigthölsrer@terbertlam.hc">
+                        <input type="email" class="form-control"
+                            id="exampleInputEmail" aria-describedby="emailHelp"
+                            placeholder="z.b. lemarc.erbigthölsrer@terbertlam.hc">
+                        </input>
                         <small id="emailHelp" class="form-text text-muted">
                             Wird ausschliesslich zum Zwecke der Bestätigung der Reservation verwendet.
                         </small>
                     </div>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                    <button type="submit" class="btn btn-primary pull-right">Abschliessen</button>
-                </form>
+                    <button
+                        type="button" class="btn btn-secondary"
+                        data-dismiss="modal">
+                        Abbrechen
+                    </button>
+                    <button
+                        type="submit" class="btn btn-primary pull-right"
+                        onclick="submitReservationRequest()" data-toggle="modal"
+                        data-target="#myModal">
+                        Abschliessen
+                    </button>
+                <!--</form>-->
             </div>
         </div>
     </div>
@@ -79,6 +90,7 @@
 
 <script src="/static/jquery.min.js"></script>
 <script src="/static/bootstrap.min.js" async defer></script>
+<script src='/static/cookies.min.js' async defer></script>
 <script src='https://www.google.com/recaptcha/api.js' async defer></script>
 
 <style>
@@ -188,7 +200,11 @@ background: linear-gradient(to bottom right, rgb(26, 173, 167), rgb(0, 71, 255))
 
 loadDateSelection()
 
-
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", Cookies.get('csrftoken'));
+    }
+});
 
 function loadDateSelection(){
     //FIXME TODO make sure that is contentDiv is in inital position
@@ -215,7 +231,6 @@ function loadDateSelection(){
                     window.selectedSeats = []
                     for (var i = 0; i < dates.length; i++) {
                         date = new Date(dates[i]).toLocaleDateString()
-                        console.log(date)
                         window.selectedSeats[date]=[]
                     }
                 }
@@ -227,7 +242,6 @@ function loadDateSelection(){
 )
 
 request.fail(function( jqXHR, textStatus ) {
-    console.log(jqXHR)
     alert( "Something went horribly wrong: \n"+
     "\nstatus: "+jqXHR.status+" ("+jqXHR.statusText+")");
 });
@@ -326,7 +340,6 @@ function submitDateAndLoadSeatSelection(id){
     })
 
     request.fail(function( jqXHR, textStatus ) {
-        console.log(jqXHR)
         alert( "Something went horribly wrong: \n"+
         "\nstatus: "+jqXHR.status+" ("+jqXHR.statusText+")");
     });
@@ -364,9 +377,8 @@ function createSeatSelection(text){
 
 
 function draw(){
-    console.log("drawing...")
     //Somehow this fixes the non-drawing issue.
-    console.log($('#svgColumn').parent().height())
+    $('#svgColumn').parent().height()
     var svgCanvas = document.getElementById("svgCanvas")
     //FIXME use parents inner element width.
     var xSize = svgCanvas.width.baseVal.value
@@ -468,6 +480,39 @@ function draw(){
         html.push("zu reservieren.")
 
         $("#seatResume").html(html.join(" "))
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    function submitReservationRequest(){
+    console.log("asdfasdf")
+    var request = $.ajax({
+        method: "POST",
+        url: window.location.href+"reserved",
+        //data: { date: date },
+        success : function(response)
+        {
+            //if email is valid and user not bot
+            $('#contentDiv').html(response)
+        }
+    }
+)
+
+    }
+
+
+    function loadReservationConfirmationPrompt(){
+
 
     }
 

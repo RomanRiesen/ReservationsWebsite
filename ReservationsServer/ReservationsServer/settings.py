@@ -38,10 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'index',
-    'sitzreservation'
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = ( #Used to be MIDDLEWARE_CLASSES
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

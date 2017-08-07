@@ -6,7 +6,9 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^getdates$', views.getdates),
     url(r'^dateselection$', views.dateselection),
+    #FIXME remove this when front end changes to /sitzreservation as it shoudl.
     #redirect to the sitzreservation module/app/urlSpace
-    url(r'^sitzverteilung$', lambda r:redirect('/sitzreservation/sitzverteilung')),
-    url(r'.*', lambda r:redirect('/sitzreservation')),
+    url(r'^sitzverteilung$', views.sitzverteilung),
+    url(r'^sitzreservation$', views.sitzreservation),
+    url(r'^reserved$', views.reserved),
 ]
