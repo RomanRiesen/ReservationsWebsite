@@ -1,279 +1,474 @@
 <!DOCTYPE html>
 <html lang="de">
+
+
+
 <head>
-    <meta charset="utf-8">
+    <title>Sitzreservation</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Sitzreservierung</title>
-
-    <!-- Bootstrap -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
 </head>
 
 
-<div id = "main" class = "">
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Sitzreservation</a>
-    </div>
-    <!--<ul class="nav navbar-nav">
-        <li>
-          <a>
-            <button type="button" id="continueButton"
-            class="btn btn-primary">
-          Zurück
-          </button>
-        </a>
-    </li>
-    </ul>-->
-    <ul class="nav navbar-nav navbar-right pull-right">
-      <li>
-          <a>
-              <button type="button" id="continueButton"
-            class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-            Weiter
-            </button>
+
+<link href="/static/bootstrap.min.css" rel="stylesheet" async></link>
+
+
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="">Sitzreservation</a>
+            </div>
+            <ul class="nav navbar-nav navbar pull-right">
+                <li>
+                    <a>
+                        <button type="button" id="continueButton" disabled
+                        class="flowButtons btn btn-primary hidden" data-toggle="modal" data-target="#myModal">
+                        Weiter
+                    </button>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right pull-right">
+            <li>
+                <a>
+                    <button type="button" id="returnButton"
+                    class="flowButtons btn btn-secondary hidden">
+                    Zurück
+                </button>
             </a>
-      </li>
+        </li>
     </ul>
-  </div>
+</div>
 </nav>
 
-    <div class = "container-fluid">
-    <div class = "row">
-    <div class = "col-md-1 col-lg-3 col-xl-4">
-    </div>
-    <div class = "col-md-10 col-sm-12 col-lg-6 col-xl-4" style = "">
-        <svg id = "svgCanvas" version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        width="100%" height="80vh">
-
-        <style>
-        .reserved {
-            fill: #4f4f4f;
-        }
-        .reserved:hover {
-            fill: #111111;
-        }
-        .free {
-            fill: #61b444;
-        }
-        .selected {
-            fill: #ee3a3a;
-        }
-        .selected:hover {
-            fill: #f9c3c3;
-        }
-        .free:hover {
-            fill: #d1f9c3;
-        }
-        </style>
-
-    </svg>
-    </div>
-    <div class = "col-md-1 col-lg-3 col-xl-4">
-    </div>
-    </div>
-</div>
-
-<!--<div id = "hoverInfo" class = "row">
-    <div class = "col-sm-12">
-    </div>
-
-    <div id = "colorInfo" class = "row">
-        <div class = "col-sm-4">
-            <svg id = "infoFree"> </svg>
-        </div>
-        <div class = "col-sm-4">
-            <svg id = "infoSelected"> </svg>
-        </div>
-        <div class = "col-sm-4">
-            <svg id = "infoReserved"> </svg>
-        </div>
-    </div>-->
-
-</div>
-</div>
 
 
-<!-- Modal
-captcha: https://www.google.com/recaptcha/admin#site/337861062?setup
--->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <!--<div class="modal-header">
-        <h5 class="modal-title"><b>TITEL</b></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>-->
-      <div class="modal-body">
-          <div id = "seatResume">
-          </div>
-          <br>
-          <form>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email Adresse</label>
-                <input type="email" class="form-control" id="exampleInputEmail1"
-                 aria-describedby="emailHelp" placeholder="z.b. lemarc.erbigthölsrer@terbertlam.hc">
-                <small id="emailHelp" class="form-text text-muted">
-                    Wird ausschliesslich zum Zwecke der Bestätigung der Reservation verwendet.
-                </small>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id = "seatResume">
+                </div>
+                <br>
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email Adresse</label>
+                        <input type="email" class="form-control" id="exampleInputEmail"
+                        aria-describedby="emailHelp" placeholder="z.b. lemarc.erbigthölsrer@terbertlam.hc">
+                        <small id="emailHelp" class="form-text text-muted">
+                            Wird ausschliesslich zum Zwecke der Bestätigung der Reservation verwendet.
+                        </small>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                    <button type="submit" class="btn btn-primary pull-right">Abschliessen</button>
+                </form>
             </div>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-        <button type="submit" class="btn btn-primary pull-right">Abschliessen</button>
-        </form>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
 
+
+<div class = "container-fluid" id ="contentDiv">
+
+</div>
 
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src="/static/jquery.min.js"></script>
+<script src="/static/bootstrap.min.js" async defer></script>
+<script src='https://www.google.com/recaptcha/api.js' async defer></script>
+
+<style>
+#layout {
+    padding-top:62px;
+}
+
+@media screen and (min-width: 991px){
+    #layout {
+        padding-top: 30px;
+    }
+}
+
+#layout {
+position: absolute;
+top: 20vh;
+text-align: center;
+font-size: 24px;
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+grid-auto-rows: repeat(3, 1fr);
+grid-template-areas:
+"a a a"
+"b c d"
+"e f g";
+}
+
+#dateField {
+margin-bottom: 25px;
+}
+
+#info {
+margin-bottom: 20px;
+grid-column: 2;
+grid-row: 1;
+}
+
+#captchaButton{
+grid-column: 2;
+grid-row: 3;
+}
+
+#svgCanvas{
+left: 0%;
+right: 0%;
+}
+
+#svgColumn{
+text-align: center;
+}
+
+.wrapper {
+grid-column: 2;
+grid-row: 1;
+grid-area: c;
+display: grid;
+grid-gap: 1vh;
+}
+
+.hidden {
+height: 0pt;
+}
+
+.dateButton {
+font-size: 16px;
+transition: all 0.2s ease-out;
+/*border-radius: 3vh;
+border-width: 2px;*/
+/*
+border-color: rgb(0, 163, 255);
+background: linear-gradient(to bottom right, rgb(26, 173, 167), rgb(0, 71, 255));*/
+}
+
+.dateButton:hover{
+    transform: translate(1px,1px);
+    box-shadow: 1px 1px rgba(22, 22, 22, 0.77);
+}
+
+
+.hideUp {
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -ms-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+  /*margin-bottom: 100% !important;*/
+  transform: translate(0, -1000px);
+}
+
+.moveIn {
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -ms-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+  /*margin-bottom: 100% !important;*/
+  transform: translate(0, 0px);
+}
+
+</style>
+
+
 
 <script>
 
-$(document).ready(main)
+
+
+loadDateSelection()
 
 
 
-function main(){
+function loadDateSelection(){
+    //FIXME TODO make sure that is contentDiv is in inital position
+    //$('#contentDiv').addClass('moveIn')
 
-    $("#continueButton").attr('disabled', true)
-
-    if (!window.selectedSeats){
-        window.selectedSeats = [];
+    window.onresize = ()=>{
     }
+    //FIXME this is horrible
+    var newUrl = window.location.href+"dateselection"
+    var request = $.ajax({
+        //method: "POST",//FIXME
+        method: "GET",
+        url: newUrl,
+        //data: { date: date },
+        success : function(text)
+        {
+            $('#contentDiv').html(text)
+            $('.flowButtons').addClass('hidden')
+
+            $.getJSON("getdates", (dates)=>
+            {
+                //FIXME move into createDateButtons method
+                if (!window.selectedSeats){
+                    window.selectedSeats = []
+                    for (var i = 0; i < dates.length; i++) {
+                        date = new Date(dates[i]).toLocaleDateString()
+                        console.log(date)
+                        window.selectedSeats[date]=[]
+                    }
+                }
+                createDateButtons()
+            }
+        )
+    }
+}
+)
+
+request.fail(function( jqXHR, textStatus ) {
+    console.log(jqXHR)
+    alert( "Something went horribly wrong: \n"+
+    "\nstatus: "+jqXHR.status+" ("+jqXHR.statusText+")");
+});
+}
+
+
+
+// function createDateButtons() {
+//     if(jQuery.isEmptyObject(window.selectedSeats)){alert('There are currently no shows planned.')}
+//     //create the grid layout depending on how many buttons there are
+//     var l = Object.keys(window.selectedSeats).length;
+//     var rows = Math.ceil(l**0.5)
+//     var columns = Math.floor(l**0.5)
+//     var colSize = Math.ceil(12/columns)
+//     //$("#dateField").css({gridTemplateColumns : "repeat("+columns+", 1fr)"})
+//     //$("#dateField").css({gridAutoRows : "repeat("+rows+", 1fr)"})
+//
+//     var html = "<div class='container' style='text-align: center;'>"
+//     var id = 0
+//     var parentWidth = $("#dateField").width()
+//     console.log(parentWidth)
+//
+//     Object.keys(window.selectedSeats).forEach((date)=>{
+//         //FIXME inject within django???
+//         var buttonId = "buttonNr"+id;
+//         button =
+//         "<button type = \"submit\""+
+//         "id=\""+buttonId+"\""+
+//         "onclick=\"submitDateAndLoadSeatSelection(id)\""+
+//         "class = \"btn btn-primary dateButton col-md-"+colSize+" col-sm-"+colSize+" col-lg-"+colSize+" col-xl-"+colSize+"\">"+
+//         date+
+//         "</button>"
+//
+//         // if(id % rows == 0){
+//         //     if(id !== 0){ html+="</div>" }
+//         //     html += "<div class='row'>"+button
+//         // } else {
+//         //     html += button
+//         // }
+//         //So much thought wasted. This actually works best for this.  Although maybe a FIXME Datepicker would be better?
+//         html += button
+//
+//         id += 1
+//     })
+//     html+="</div>"
+//     $("#dateField").html(html);
+// }
+
+function createDateButtons() {
+    if(jQuery.isEmptyObject(window.selectedSeats)){alert('There are currently no shows planned.')}
+    var l = Object.keys(window.selectedSeats).length;
+    //create the grid layout depending on how many buttons there are
+    var rows = Math.ceil(l**0.5)
+    var columns = Math.floor(l**0.5)
+    $("#dateField").css({gridTemplateColumns : "repeat("+columns+", 1fr)"})
+    $("#dateField").css({gridAutoRows : "repeat("+rows+", 1fr)"})
+
+    var id = 0
+    html = ""
+    Object.keys(window.selectedSeats).forEach((date)=>{
+        //FIXME inject within django???
+        var buttonId = "buttonNr"+id
+
+        html += "<button type = \"submit\""+
+        "id=\""+buttonId+"\""+
+        "onclick=\"submitDateAndLoadSeatSelection(id)\""+
+        "class = \"btn btn-primary dateButton\">"+
+        date+
+        "</button>"
+
+        id++
+    })
+    $("#dateField").html(html)
+    //TODO
+    //$("contentDiv").addClass('moveIn')
+}
+
+
+
+function submitDateAndLoadSeatSelection(id){
+    //$('#contentDiv').addClass('hideUp');
+
+    var date = ($("#"+id).html())
+    var newUrl = window.location.href+"sitzreservation"
+    var request = $.ajax({
+        //method: "POST",//FIXME
+        method: "GET",
+        url: newUrl,
+        //data: { date: date },
+        success : function(text)
+        {
+            //FIXME this is horrible
+            window.selectedDate = ($("#"+id).html())
+            createSeatSelection(text)
+        }
+    })
+
+    request.fail(function( jqXHR, textStatus ) {
+        console.log(jqXHR)
+        alert( "Something went horribly wrong: \n"+
+        "\nstatus: "+jqXHR.status+" ("+jqXHR.statusText+")");
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function createSeatSelection(text){
+
+    $('#contentDiv').html(text)
+
+    $('.flowButtons').removeClass('hidden')
+
+    $('#returnButton').click(loadDateSelection)
+
+    $('#continueButton').click(createSummarizingText)
 
     draw()
+
+    window.onresize = ()=>{
+        setTimeout(draw, 10)
+    }
 
 }
 
 
 
 function draw(){
-
+    console.log("drawing...")
+    //Somehow this fixes the non-drawing issue.
+    console.log($('#svgColumn').parent().height())
     var svgCanvas = document.getElementById("svgCanvas")
     //FIXME use parents inner element width.
     var xSize = svgCanvas.width.baseVal.value
-    //var ySize = svgCanvas.height.baseVal.value//
-    var ySize = xSize
-    if(xSize > svgCanvas.height.baseVal.value){
-        svgCanvas.height.baseVal.value = xSize
-    }
-    $.getJSON("seatsORIGINAL.json", function(json) {
-        var seatRadius = Math.min(ySize/(4.2*json.length**0.5),
-                                  xSize/(3*json.length**0.5))
+    var ySize = svgCanvas.height.baseVal.value
 
-        for (var i = 0; i < json.length; i++){
-            seat = json[i]
-            var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle') //Create a path in SVG's namespace
-            newElement.setAttribute("r",seatRadius)
-            newElement.setAttribute("cx",seat.x*xSize)
-            newElement.setAttribute("cy",seat.y*ySize)
-            var idString = seat.i
-            newElement.setAttribute("id", idString)
-            //try to remove the element
-            var elm = svgCanvas.getElementById(idString)
-            if(elm){elm.remove()}
-            newElement.setAttribute("class", seat.f == 1 ? "free" : "reserved")
-            var classes =  newElement.getAttribute("class")
-            if(classes.indexOf("free") > -1 || classes.indexOf("selected") > -1 ){
-                newElement.setAttribute("onclick", "clickOnSeat('"+idString+"')")
-            } else {
-                newElement.setAttribute("onclick", "alert('Bereits reserviert!')")
-            }
-            svgCanvas.appendChild(newElement)
-            //if seat in window.selectedSeats make it selected on update
-            //FIXME this wont work if I have one big single page, as I would overwrite the reserved class as well. Solution: cookie or session.
-            //TODO Also make a function for selecting and deselecting a seat.
-            if(window.selectedSeats.indexOf(seat.i)>-1){
-                if( classes.indexOf("free") > -1 ){
-                    newElement.setAttribute("class", classes.replace("free","selected"))
+    if (xSize > ySize){
+        ySize = (xSize/ySize)*ySize
+        svgCanvas.height.baseVal.value = ySize
+    }
+
+    $.getJSON("sitzverteilung", function(json) {
+        console.log(json.length)
+        var seatRadius = Math.min(
+            ySize/(4.2*json.length**0.5),
+            xSize/(3*json.length**0.5))
+
+            for (var i = 0; i < json.length; i++){
+                seat = json[i]
+
+                var idString = seat.i
+                var elm = svgCanvas.getElementById(idString)
+                if(elm){elm.remove()}
+
+                var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle') //Create a path in SVG's namespace
+                newElement.setAttribute("r", seatRadius)
+                newElement.setAttribute("cx",seat.x*xSize)
+                newElement.setAttribute("cy",seat.y*ySize)
+                newElement.setAttribute("id", idString)
+                //try to remove the element
+                newElement.setAttribute("class", seat.f == 1 ? "free" : "reserved")
+                var classes =  newElement.getAttribute("class")
+                if(classes.indexOf("free") > -1 || classes.indexOf("selected") > -1 ){
+                    newElement.setAttribute("onclick", "clickOnSeat('"+idString+"')")
+                } else {
+                    newElement.setAttribute("onclick", "alert('Bereits reserviert!')")
+                }
+                svgCanvas.appendChild(newElement)
+                //if seat in window.selectedSeats make it selected on update
+                //FIXME this wont work if I have one big single page, as I would overwrite the reserved class as well. Solution: cookie or session.
+                //TODO Also make a function for selecting and deselecting a seat.
+                var selectedSeats = window.selectedSeats[window.selectedDate]
+                if(selectedSeats.indexOf(seat.i)>-1){
+                    if( classes.indexOf("free") > -1 ){
+                        newElement.setAttribute("class", classes.replace("free","selected"))
+                    }
                 }
             }
+            //TODO
+            //$('#contentDiv').toggleClass('moveIn')
+        });
+    }
+
+
+
+    function clickOnSeat(seatName){
+        //TODO save selected seats as cookie or after # in url.
+        var element = document.getElementById(seatName)
+        var classes = element.getAttribute("class")
+        if( classes.indexOf("free") > -1 ){
+            window.selectedSeats[window.selectedDate].push(seatName)
+            element.setAttribute("class", classes.replace("free","selected"))
         }
-    });
-}
+        if( classes.indexOf("selected") > -1 ){
+            window.selectedSeats[window.selectedDate].splice(window.selectedSeats[window.selectedDate].indexOf(seatName), 1)
+            element.setAttribute("class", classes.replace("selected","free"))
+        }
+        //FIXME only do this when "Weiter" button is pressed.
+        //createSummarizingText()
+        $("#continueButton").attr('disabled', true)
+        if(window.selectedSeats[window.selectedDate].length > 0){
+            $("#continueButton").attr('disabled', false)
+        }
 
-
-
-function clickOnSeat(seatName){
-    //TODO save selected seats as cookie or after # in url.
-    var element = document.getElementById(seatName)
-    var classes = element.getAttribute("class")
-    if( classes.indexOf("free") > -1 ){
-        window.selectedSeats.push(seatName)
-        element.setAttribute("class", classes.replace("free","selected"))
-    }
-    if( classes.indexOf("selected") > -1 ){
-        window.selectedSeats.splice(window.selectedSeats.indexOf(seatName), 1)
-        element.setAttribute("class", classes.replace("selected","free"))
-    }
-    //FIXME only do this when "Weiter" button is pressed.
-    updateSeatResume()
-}
-
-
-
-function updateSeatResume (){
-
-    $("#continueButton").attr('disabled', true)
-    if(window.selectedSeats.length > 0){
-        $("#continueButton").attr('disabled', false)
     }
 
-    var seats = JSON.parse(JSON.stringify(window.selectedSeats))
 
-    //remove everything but the number of the seat
-    var numberOfSeats = seats.length
-    seats = seats.map((seat)=>{return seat.replace ( /\D+/g, '' )})
 
-    //sort by seat number
-    seats = seats.sort(function(a, b){return parseInt(a)-parseInt(b)})
-    var lastSeat = seats.pop()
+    function createSummarizingText (){
+        var seats = JSON.parse(JSON.stringify(window.selectedSeats[window.selectedDate]))
+        //remove everything but the number of the seat
+        var numberOfSeats = seats.length
+        seats = seats.map((seat)=>{return seat.replace ( /\D+/g, '' )})
+        //sort by seat number
+        seats = seats.sort(function(a, b){return parseInt(a)-parseInt(b)})
+        var lastSeat = seats.pop()
 
-    var html = []
-    html[0] = "Sie sind im Begriff"
-    html[1] = "einen Sitz"
-    html[2] = "(nummer"
-    html[3] = lastSeat+")"
+        var html = []
+        html[0] = "Sie sind im Begriff"
+        html[1] = "einen Sitz"
+        html[2] = "(nummer"
+        html[3] = lastSeat+")"
 
-    if( window.selectedSeats.length > 1 ){
-        //change what needs to be changed if plural is needed.
-        html[1] = numberOfSeats+" Sitze"
-        html[3] = seats.join(", ")+" und " + lastSeat+")";
+        if( window.selectedSeats[window.selectedDate].length > 1 ){
+            //change what needs to be changed if plural is needed.
+            html[1] = numberOfSeats+" Sitze"
+            html[3] = seats.join(", ")+" und " + lastSeat+")";
+        }
+
+        html.push("zu reservieren.")
+
+        $("#seatResume").html(html.join(" "))
+
     }
 
-    html.push("zu reservieren.")
-
-    $("#seatResume").html(html.join(" "))
-
-}
-
-
-
-var isLandscapeMode = window.innerWidth > window.innerHeight
-//FIXME CREATE FUNCTION. Should only update when changed from landscape to portrait or vive-versa!!!!
-//FIXME WHICH IS ONLY A H4cK TO A SYMPTOM FROM A MORE FOUNDAMENTAL PROBLEM ELSEWHERE!!!!
-	window.onresize = ()=>{
-//var isLandscapeModeNow = window.innerWidth > window.innerHeight
-//if(isLandscapeModeNow != isLandscapeMode){
-//	  isLandscapeMode = isLandscapeModeNow
-	  setTimeout(
-	   draw,50
-   	)
-//    }
-};
-
-
-</script>
-
-</html>
+    </script>

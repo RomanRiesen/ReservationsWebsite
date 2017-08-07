@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^getdates$', views.getdates),
+    url(r'^dateselection$', views.dateselection),
     #redirect to the sitzreservation module/app/urlSpace
-    url(r'^sitzreservation$', lambda r:redirect('/sitzreservation')),
+    url(r'^sitzverteilung$', lambda r:redirect('/sitzreservation/sitzverteilung')),
+    url(r'.*', lambda r:redirect('/sitzreservation')),
 ]

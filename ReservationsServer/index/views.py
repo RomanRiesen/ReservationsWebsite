@@ -11,7 +11,12 @@ from .models import PerformanceDate
 # Create your views here
 #returns the first html page (the one on which you select which date)
 def index(response):
-    with open('../dateSelection.html', 'r') as f:
+    with open('../index.html', 'r') as f:
+        s = f.read()
+        return HttpResponse(s)
+
+def dateselection(response):
+    with open('../dateselection.html', 'r') as f:
         s = f.read()
         return HttpResponse(s)
 
