@@ -1,0 +1,25 @@
+<div class = "row">
+
+    <div id="layout" class = "col-md-12 col-sm-12 col-lg-12">
+        <div id="info">Bitte Datum wählen<br>
+            <small>(Vorstellungen finden jeweils um 19:00 statt).</small>
+        </div>
+        <div class="wrapper" id="dateField">
+        </div>
+        <!--https://github.com/praekelt/django-recaptcha-->
+        <!--https://www.google.com/recaptcha/admin#site/337861062-->
+        <!--https://developers.google.com/recaptcha/docs/invisible-->
+        <div id = "captchaButton">
+            <form id='demo-form' action="?" method="POST">
+                <button class="g-recaptcha btn btn-secondary hidden"
+                data-sitekey="6LfGWSMUAAAAAF8UId22XTyU98_TMzajBSm1iVbR"
+                data-callback='onSubmit'
+                data-size="invisible"
+                data-badge="bottomleft"
+                data-type="image">
+                Ich bin kein Roboter!
+            </button>
+        </form>
+    </div>
+</div>
+</div>

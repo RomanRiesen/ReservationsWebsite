@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Sitzreservierung</title>
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+
+<div id = "main" class = "">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Sitzreservation</a>
+    </div>
+    <!--<ul class="nav navbar-nav">
+        <li>
+          <a>
+            <button type="button" id="continueButton"
+            class="btn btn-primary">
+          Zurück
+          </button>
+        </a>
+    </li>
+    </ul>-->
+    <ul class="nav navbar-nav navbar-right pull-right">
+      <li>
+          <a>
+              <button type="button" id="continueButton"
+            class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            Weiter
+            </button>
+            </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    <div class = "container-fluid">
+    <div class = "row">
+    <div class = "col-md-1 col-lg-3 col-xl-4">
+    </div>
+    <div class = "col-md-10 col-sm-12 col-lg-6 col-xl-4" style = "">
+        <svg id = "svgCanvas" version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%" height="80vh">
+
+        <style>
+        .reserved {
+            fill: #4f4f4f;
+        }
+        .reserved:hover {
+            fill: #111111;
+        }
+        .free {
+            fill: #61b444;
+        }
+        .selected {
+            fill: #ee3a3a;
+        }
+        .selected:hover {
+            fill: #f9c3c3;
+        }
+        .free:hover {
+            fill: #d1f9c3;
+        }
+        </style>
+
+    </svg>
+    </div>
+    <div class = "col-md-1 col-lg-3 col-xl-4">
+    </div>
+    </div>
+</div>
+
+<!--<div id = "hoverInfo" class = "row">
+    <div class = "col-sm-12">
+    </div>
+
+    <div id = "colorInfo" class = "row">
+        <div class = "col-sm-4">
+            <svg id = "infoFree"> </svg>
+        </div>
+        <div class = "col-sm-4">
+            <svg id = "infoSelected"> </svg>
+        </div>
+        <div class = "col-sm-4">
+            <svg id = "infoReserved"> </svg>
+        </div>
+    </div>-->
+
+</div>
+</div>
+
+
+<!-- Modal
+captcha: https://www.google.com/recaptcha/admin#site/337861062?setup
+-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <!--<div class="modal-header">
+        <h5 class="modal-title"><b>TITEL</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>-->
+      <div class="modal-body">
+          <div id = "seatResume">
+          </div>
+          <br>
+          <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email Adresse</label>
+                <input type="email" class="form-control" id="exampleInputEmail1"
+                 aria-describedby="emailHelp" placeholder="z.b. lemarc.erbigthölsrer@terbertlam.hc">
+                <small id="emailHelp" class="form-text text-muted">
+                    Wird ausschliesslich zum Zwecke der Bestätigung der Reservation verwendet.
+                </small>
+            </div>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+        <button type="submit" class="btn btn-primary pull-right">Abschliessen</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<script>
+
+$(document).ready(main)
+
+
+
+function main(){
+
+    $("#continueButton").attr('disabled', true)
+
+    if (!window.selectedSeats){
+        window.selectedSeats = [];
+    }
+
+    draw()
+
+}
+
+
+
+function draw(){
+
+    var svgCanvas = document.getElementById("svgCanvas")
+    //FIXME use parents inner element width.
+    var xSize = svgCanvas.width.baseVal.value
+    //var ySize = svgCanvas.height.baseVal.value//
+    var ySize = xSize
+    if(xSize > svgCanvas.height.baseVal.value){
+        svgCanvas.height.baseVal.value = xSize
+    }
+    $.getJSON("seatsORIGINAL.json", function(json) {
+        var seatRadius = Math.min(ySize/(4.2*json.length**0.5),
+                                  xSize/(3*json.length**0.5))
+
+        for (var i = 0; i < json.length; i++){
+            seat = json[i]
+            var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'circle') //Create a path in SVG's namespace
+            newElement.setAttribute("r",seatRadius)
+            newElement.setAttribute("cx",seat.x*xSize)
+            newElement.setAttribute("cy",seat.y*ySize)
+            var idString = seat.i
+            newElement.setAttribute("id", idString)
+            //try to remove the element
+            var elm = svgCanvas.getElementById(idString)
+            if(elm){elm.remove()}
+            newElement.setAttribute("class", seat.f == 1 ? "free" : "reserved")
+            var classes =  newElement.getAttribute("class")
+            if(classes.indexOf("free") > -1 || classes.indexOf("selected") > -1 ){
+                newElement.setAttribute("onclick", "clickOnSeat('"+idString+"')")
+            } else {
+                newElement.setAttribute("onclick", "alert('Bereits reserviert!')")
+            }
+            svgCanvas.appendChild(newElement)
+            //if seat in window.selectedSeats make it selected on update
+            //FIXME this wont work if I have one big single page, as I would overwrite the reserved class as well. Solution: cookie or session.
+            //TODO Also make a function for selecting and deselecting a seat.
+            if(window.selectedSeats.indexOf(seat.i)>-1){
+                if( classes.indexOf("free") > -1 ){
+                    newElement.setAttribute("class", classes.replace("free","selected"))
+                }
+            }
+        }
+    });
+}
+
+
+
+function clickOnSeat(seatName){
+    //TODO save selected seats as cookie or after # in url.
+    var element = document.getElementById(seatName)
+    var classes = element.getAttribute("class")
+    if( classes.indexOf("free") > -1 ){
+        window.selectedSeats.push(seatName)
+        element.setAttribute("class", classes.replace("free","selected"))
+    }
+    if( classes.indexOf("selected") > -1 ){
+        window.selectedSeats.splice(window.selectedSeats.indexOf(seatName), 1)
+        element.setAttribute("class", classes.replace("selected","free"))
+    }
+    //FIXME only do this when "Weiter" button is pressed.
+    updateSeatResume()
+}
+
+
+
+function updateSeatResume (){
+
+    $("#continueButton").attr('disabled', true)
+    if(window.selectedSeats.length > 0){
+        $("#continueButton").attr('disabled', false)
+    }
+
+    var seats = JSON.parse(JSON.stringify(window.selectedSeats))
+
+    //remove everything but the number of the seat
+    var numberOfSeats = seats.length
+    seats = seats.map((seat)=>{return seat.replace ( /\D+/g, '' )})
+
+    //sort by seat number
+    seats = seats.sort(function(a, b){return parseInt(a)-parseInt(b)})
+    var lastSeat = seats.pop()
+
+    var html = []
+    html[0] = "Sie sind im Begriff"
+    html[1] = "einen Sitz"
+    html[2] = "(nummer"
+    html[3] = lastSeat+")"
+
+    if( window.selectedSeats.length > 1 ){
+        //change what needs to be changed if plural is needed.
+        html[1] = numberOfSeats+" Sitze"
+        html[3] = seats.join(", ")+" und " + lastSeat+")";
+    }
+
+    html.push("zu reservieren.")
+
+    $("#seatResume").html(html.join(" "))
+
+}
+
+
+
+var isLandscapeMode = window.innerWidth > window.innerHeight
+	  setTimeout(
+	   draw,50
+   	)
+};
+
+
+</script>
+
+</html>
