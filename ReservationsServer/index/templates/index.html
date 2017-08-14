@@ -99,7 +99,6 @@
 
 
 
-
 <script>
 
 
@@ -179,7 +178,7 @@ function createDateButtons() {
 
         html += "<button type = \"submit\""+
         "id=\""+buttonId+"\""+
-        "onclick=\"submitDateAndLoadSeatSelection(id)\""+
+        "onclick=\"onDateButtonClick(id)\""+
         "class = \"btn btn-primary dateButton\">"+
         date+
         "</button>"
@@ -193,17 +192,15 @@ function createDateButtons() {
 
 
 
-function submitDateAndLoadSeatSelection(id){
+function onDateButtonClick(id){
     //$('#contentDiv').addClass('hideUp');
 
     var date = ($("#"+id).html())
     var newUrl = window.location.href+"sitzreservation"
     var request = $.ajax({
-        //method: "POST",//FIXME
         method: "GET",
         url: newUrl,
         cache: true,
-        //data: { date: date },
         success : function(text)
         {
             //FIXME this is horrible
@@ -292,7 +289,6 @@ function draw(){
             }
             svgCanvas.appendChild(newElement)
             //if seat in window.selectedSeats make it selected on update
-            //FIXME this wont work if I have one big single page, as I would overwrite the reserved class as well. Solution: cookie or session.
             //TODO Also make a function for selecting and deselecting a seat.
             var selectedSeats = window.selectedSeats[window.selectedDate]
             if(selectedSeats.indexOf(seat.i)>-1){
@@ -341,10 +337,11 @@ function draw(){
         var lastSeat = seats.pop()
 
         var html = []
-        html[0] = "Sie sind im Begriff"
+        html[0] = "Sie sind im Begriff<b>"
         html[1] = "einen Sitz"
-        html[2] = "(nummer"
+        html[2] = "</b>(nummer"
         html[3] = lastSeat+")"
+        html[4] = "am <b>"+window.selectedDate+"</b>"
 
         if( window.selectedSeats[window.selectedDate].length > 1 ){
             //change what needs to be changed if plural is needed.

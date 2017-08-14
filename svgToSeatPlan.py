@@ -31,7 +31,7 @@ for obj in attributes:
     # Borders of the seat area in the svg file
     maxCy = max(float(obj['cy']), maxCy)
     maxCx = max(float(obj['cx']), maxCx)
-   
+
     minCy = min(float(obj['cy']), minCy)
     minCx = min(float(obj['cx']), minCx)
 
@@ -47,5 +47,5 @@ for seat in seats:
 
 jsonString = json.dumps(jsonSeats)
 
-with open("seats_ORIGINAL.json", "w+") as f:
+with open("seatsORIGINAL.json", "w+") as f:
     f.write(jsonString)

@@ -26,6 +26,11 @@ grid-template-areas:
 "e f g";
 }
 
+#cookieNotice {
+    font-size: 12pt;
+    grid-area: f;
+}
+
 #dateField {
 margin-bottom: 25px;
 }

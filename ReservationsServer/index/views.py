@@ -85,6 +85,9 @@ def reserved(request):
     #FIXME captcha missing
 
     #FIXME check if a seat is already reserved!
+    for s in Reservation.objects:
+        if s.seatName == seatName  and s.datum == datum:
+            return HttpResponse("Seats Unavailable", status=400)
     #insert new Reservation
     Reservation.objects.bulk_create(
         [Reservation(email = email, seatName = seat, datum = date) for seat in json.loads(seatsJson)]
@@ -99,5 +102,4 @@ def getreservation(request, date):
     for d in dates:
         reservedSeats.append(d.seatName)
     response = json.dumps(reservedSeats)
-    print(response)
     return HttpResponse(response)

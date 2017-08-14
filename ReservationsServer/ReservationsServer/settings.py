@@ -25,7 +25,7 @@ SECRET_KEY = '^+m1s+d1lfdm7e!lxx)qy*2m6%&cg(^nei4ib1d5f2sw=-5)1%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['menkoi.pythonanywhere.com']
 
 
 # Application definition

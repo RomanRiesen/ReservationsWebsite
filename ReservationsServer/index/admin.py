@@ -17,5 +17,5 @@ class PerformanceDateAdmin(admin.ModelAdmin):
 
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('datum', 'email', 'seatName')
+    list_display = ('datum', 'email', 'seatName', 'reservation_time')
     ordering = ('datum',)
