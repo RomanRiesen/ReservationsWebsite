@@ -1,13 +1,16 @@
-from django.shortcuts import render
-from django.http import HttpResponse
 from django.views import generic
-from django.http import JsonResponse
 from django.template import loader
+from django.http import HttpResponse
+from django.http import JsonResponse
+from django.shortcuts import render
+
+from django.core.validators import validate_email
+from django import forms
 
 import json
 from datetime import date
 
-from .models import PerformanceDate
+from .models import PerformanceDate, Reservation
 
 # Create your views here
 #returns the first html page (the one on which you select which date)
@@ -50,13 +53,10 @@ def captcha(request):
 
 
 #loads after the date selection
-#returns the seatreservation.html file if captcha works
-# adds to session that user is verified.
 def sitzreservation(request):
     return render(request, 'sitzreservation.html', {})
 
 
-#if user is verified to not be a bot
 #send the data of the seats.
 def sitzverteilung(request):
     with open('../seatsORIGINAL.json', 'r') as f:
@@ -65,5 +65,39 @@ def sitzverteilung(request):
 
 
 def reserved(request):
-    s = "Reservation Succesfull!"
-    return HttpResponse(s)
+    try:
+        seatsJson = request.POST["seats"]
+        email = request.POST["email"]
+        date = request.POST["date"]
+    except KeyError:
+        #vital data ommited
+        return HttpResponse("Missing Values", status=400)
+
+    try:
+        validate_email(request.POST.get("email", ""))
+    except forms.ValidationError:
+        return HttpResponse("Bad Email", status=400)
+
+
+    if seatsJson == "" or email == "" or date == "":
+        return HttpResponse("Empty Values", status=400)
+
+    #FIXME captcha missing
+
+    #FIXME check if a seat is already reserved!
+    #insert new Reservation
+    Reservation.objects.bulk_create(
+        [Reservation(email = email, seatName = seat, datum = date) for seat in json.loads(seatsJson)]
+    )
+    #returns the reservationEntered.html file if captcha works
+    return render(request, 'reservationEntered.html', {})
+
+
+def getreservation(request, date):
+    dates = Reservation.objects.filter(datum = date)
+    reservedSeats = []
+    for d in dates:
+        reservedSeats.append(d.seatName)
+    response = json.dumps(reservedSeats)
+    print(response)
+    return HttpResponse(response)

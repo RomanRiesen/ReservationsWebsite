@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import PerformanceDate
+from .models import PerformanceDate, Reservation
 
 #https://stackoverflow.com/questions/4938491/django-admin-change-header-django-administration-text
 
@@ -13,3 +13,9 @@ class PerformanceDateAdmin(admin.ModelAdmin):
         return obj.datum
 
     datum.admin_order_field = 'datum'
+
+
+@admin.register(Reservation)
+class ReservationAdmin(admin.ModelAdmin):
+    list_display = ('datum', 'email', 'seatName')
+    ordering = ('datum',)

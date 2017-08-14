@@ -1,0 +1,108 @@
+#layout {
+    padding-top:62px;
+}
+
+@media screen and (min-width: 991px){
+    #layout {
+        padding-top: 30px;
+    }
+}
+
+#emailErrorField {
+    color: rgb(255, 0, 0);
+}
+
+#layout {
+position: absolute;
+top: 20vh;
+text-align: center;
+font-size: 24px;
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+grid-auto-rows: repeat(3, 1fr);
+grid-template-areas:
+"a a a"
+"b c d"
+"e f g";
+}
+
+#dateField {
+margin-bottom: 25px;
+}
+
+#dateInfo {
+position: absolute;
+top: 0%;
+background-color: white;
+opacity: 0.9;
+font-size: 24px;
+}
+
+#info {
+font-size: 24px;
+margin-bottom: 20px;
+grid-column: 2;
+grid-row: 1;
+}
+
+#captchaButton{
+grid-column: 2;
+grid-row: 3;
+}
+
+#svgCanvas{
+left: 0%;
+right: 0%;
+}
+
+#svgColumn{
+text-align: center;
+}
+
+.wrapper {
+grid-column: 2;
+grid-row: 1;
+grid-area: c;
+display: grid;
+grid-gap: 1vh;
+}
+
+.hidden {
+height: 0pt;
+}
+
+.dateButton {
+font-size: 16px;
+transition: all 0.2s ease-out;
+/*border-radius: 3vh;
+border-width: 2px;*/
+/*
+border-color: rgb(0, 163, 255);
+background: linear-gradient(to bottom right, rgb(26, 173, 167), rgb(0, 71, 255));*/
+}
+
+.dateButton:hover{
+    transform: translate(1px,1px);
+    box-shadow: 1px 1px rgba(22, 22, 22, 0.77);
+}
+
+
+.hideUp {
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -ms-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+  /*margin-bottom: 100% !important;*/
+  transform: translate(0, -1000px);
+}
+
+.moveIn {
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -ms-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+  /*margin-bottom: 100% !important;*/
+  transform: translate(0, 0px);
+}

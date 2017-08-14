@@ -10,5 +10,6 @@ urlpatterns = [
     #redirect to the sitzreservation module/app/urlSpace
     url(r'^sitzverteilung$', views.sitzverteilung),
     url(r'^sitzreservation$', views.sitzreservation),
+    url(r'^getreservation/(?P<date>[\S\s]{0,50})/', views.getreservation),
     url(r'^reserved$', views.reserved),
 ]
