@@ -12,6 +12,8 @@ from datetime import date
 
 from .models import PerformanceDate, Reservation
 
+from .emailHelper import *
+
 # Create your views here
 #returns the first html page (the one on which you select which date)
 def index(request):
@@ -84,16 +86,33 @@ def reserved(request):
 
     #FIXME captcha missing
 
+    try:
+        send_mail(
+        'Lalalal',
+        'Here is the message.',
+        'RomanRiesen@gmail.com',
+        ['roman.r97@gmx.ch'],
+        fail_silently=False,
+        )
+    except ConnectionRefusedError:
+        return HttpResponse("Email Failed", status=418)
+
+
     #FIXME check if a seat is already reserved!
-    for s in Reservation.objects:
-        if s.seatName == seatName  and s.datum == datum:
-            return HttpResponse("Seats Unavailable", status=400)
+    seats = json.loads(seatsJson)
+    for s in seats:
+        for obj in Reservation.objects.values():
+            if obj['seatName'] == s  and obj['datum'] == date:
+                return HttpResponse("Seats Unavailable", status=400)
+
+
     #insert new Reservation
     Reservation.objects.bulk_create(
-        [Reservation(email = email, seatName = seat, datum = date) for seat in json.loads(seatsJson)]
+        [Reservation(email = email, seatName = seat, datum = date) for seat in seats]
     )
     #returns the reservationEntered.html file if captcha works
     return render(request, 'reservationEntered.html', {})
+
 
 
 def getreservation(request, date):

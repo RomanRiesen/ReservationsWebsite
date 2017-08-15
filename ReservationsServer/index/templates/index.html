@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-
+<link rel="icon" href="/static/icon.png"></link>
 
 <link href="/static/bootstrap.min.css" rel="stylesheet" async defer></link>
 <link href="/static/style.css" rel="stylesheet" async defer></link>
@@ -155,11 +155,10 @@ function loadDateSelection(){
 }
 )
 
-request.fail(function( jqXHR, textStatus ) {
-    alert( "Something went horribly wrong: \n"+
-    "\nstatus: "+jqXHR.status+" ("+jqXHR.statusText+")")
-});
-}
+request.fail(
+    ajaxFailedWarning
+)}
+
 
 function createDateButtons() {
     if(jQuery.isEmptyObject(window.selectedSeats)){alert('There are currently no shows planned.')}
@@ -209,18 +208,10 @@ function onDateButtonClick(id){
         }
     })
 
-    request.fail(function( jqXHR, textStatus ) {
-        alert( "Something went horribly wrong: \n"+
-        "\nstatus: "+jqXHR.status+" ("+jqXHR.statusText+")");
-    });
+    request.fail(
+        ajaxFailedWarning
+    );
 }
-
-
-
-
-
-
-
 
 
 
@@ -361,11 +352,6 @@ function draw(){
 
 
 
-
-
-
-
-
     function submitReservationRequest(){
     var request = $.post(window.location.href+"reserved",
         {
@@ -387,6 +373,9 @@ function draw(){
                 window.setTimeout(()=>{$('#continueButton').click()}, 310)
                 $('#emailErrorField').html("Bitte korrekte Email Adresse eingeben!")
             }
+            if(error.status == 418){
+                alert("Konnte Email nicht senden. Reservation nicht erfolgreich.")
+            }
     })
 
     }
@@ -395,9 +384,6 @@ function draw(){
     function loadReservationConfirmationPrompt(){
 
     }
-
-
-
 
 
 
@@ -430,6 +416,16 @@ function draw(){
     //removes the seat for the current window.selectedDate
     function removeSeat ( name ) {
         setSeats(getSeats().splice(name, 1))
+    }
+
+
+
+    function ajaxFailedWarning(jqXHR, statusText){
+        warning = ""
+        warning += "Something went horribly wrong: \n"
+        warning += jqXHR.status == 0 ? "You seem to be offline.\n" : ""
+        warning += "\nstatus: "+jqXHR.status+" ("+jqXHR.statusText+")"
+        alert(warning)
     }
 
     </script>
