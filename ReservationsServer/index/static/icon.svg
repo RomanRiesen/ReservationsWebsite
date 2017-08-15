@@ -10,13 +10,16 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="64"
-   height="64"
+   width="128"
+   height="128"
    id="svg6098"
    version="1.1"
    inkscape:version="0.91 r13725"
-   viewBox="0 0 64 64"
-   sodipodi:docname="icon.svg">
+   viewBox="0 0 128 128"
+   sodipodi:docname="icon.svg"
+   inkscape:export-filename="C:\Users\User\Dropbox\www\neue_platzreservierung\ReservationsServer\index\static\icon.png"
+   inkscape:export-xdpi="180.37376"
+   inkscape:export-ydpi="180.37376">
   <defs
      id="defs6100">
     <linearGradient
@@ -32,21 +35,21 @@
      id="base"
      pagecolor="#ffffff"
      bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     borderopacity="0.2745098"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="7.2412831"
-     inkscape:cx="29.129246"
-     inkscape:cy="38.197003"
+     inkscape:zoom="3.6206416"
+     inkscape:cx="16.764604"
+     inkscape:cy="30.67719"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:document-units="px"
      inkscape:grid-bbox="true"
-     inkscape:window-width="958"
-     inkscape:window-height="1008"
-     inkscape:window-x="953"
-     inkscape:window-y="40"
-     inkscape:window-maximized="0" />
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata6103">
     <rdf:RDF>
@@ -60,30 +63,22 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:groupmode="layer"
-     id="layer2"
-     inkscape:label="Layer 2">
-    <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:#030000;stroke-width:2.40581965;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0"
-       id="rect6698"
-       width="61.461563"
-       height="61.817822"
-       x="1.412578"
-       y="1.284013" />
-  </g>
-  <g
      id="layer1"
      inkscape:label="Layer 1"
-     inkscape:groupmode="layer">
+     inkscape:groupmode="layer"
+     style="opacity:1"
+     transform="translate(0,64)">
     <path
-       style="fill:#d1f9c3;fill-rule:evenodd;stroke:#61b444;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
-       d="M 8.5454545,8.6363636 C 22.636364,32.181818 8.6363636,53.545455 8.6363636,53.545455 Z"
+       style="fill:#d1f9c3;fill-opacity:1;fill-rule:evenodd;stroke:#61b444;stroke-width:3.36867905px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 1.989122,-59.993425 C 61.402749,3.3079183 1.7241771,60.182098 1.7241771,60.182098 Z"
        id="path6106"
        inkscape:connector-curvature="0" />
     <path
        inkscape:connector-curvature="0"
        id="path6108"
-       d="M 9.9440608,54.681614 C 33.489515,40.590704 54.853152,54.590704 54.853152,54.590704 Z"
-       style="fill:#de0000;fill-opacity:1;fill-rule:evenodd;stroke:#f9c3c3;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+       d="M 4.2750497,62.323816 C 67.575036,7.9166167 124.5616,62.489261 124.5616,62.489261 Z"
+       style="fill:#de0000;fill-opacity:1;fill-rule:evenodd;stroke:#f9c3c3;stroke-width:3.22391081px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:export-xdpi="1094.7046"
+       inkscape:export-ydpi="1094.7046" />
   </g>
 </svg>
