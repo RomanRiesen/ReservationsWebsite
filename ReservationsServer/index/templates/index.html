@@ -53,10 +53,9 @@
             <div class="modal-body">
                 <div id = "seatResume">
                 </div>
-                <br>
                 <!--<form action="reserved" method="post">{% csrf_token %}-->
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email Adresse</label>
+                        <label for="emailField" id="emailLabel">Email Adresse</label>
                         <div id="emailErrorField"></div>
                         <input required type="email" class="form-control"
                             id="emailField" aria-describedby="emailHelp"
@@ -363,6 +362,7 @@ function draw(){
             {
                 //if email is valid and user not bot
                 $('#contentDiv').html(response)
+                $('#continueButton').addClass("hidden")
             })
 
         .fail(function(error) {

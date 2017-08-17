@@ -1,3 +1,8 @@
+/*
+Also maybe helpful
+ */
+https://getbootstrap.com/docs/3.3/customize/
+*/
 #layout {
     padding-top:62px;
 }
@@ -10,6 +15,10 @@
 
 #emailErrorField {
     color: rgb(255, 0, 0);
+}
+
+#emailLabel {
+    margin-top: 3px;
 }
 
 #layout {
@@ -63,6 +72,11 @@ right: 0%;
 #svgColumn{
 text-align: center;
 }
+
+/*.btn-primary {background-color: #61b444; color: black; border: 0px;}
+.btn-primary:hover {background-color: #d1f9c3; color: black;}
+.btn-primary:active {background-color: #d1f9c3; color: black;}
+.btn-primary:focus {background-color: #d1f9c3; color: black;}*/
 
 .wrapper {
 grid-column: 2;
