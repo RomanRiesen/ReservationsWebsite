@@ -17,6 +17,7 @@
 
 
 <body>
+
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -37,15 +38,13 @@
                 <a>
                     <button type="button" id="returnButton"
                     class="flowButtons btn btn-secondary hidden">
-                    Zurück
+                    Datum
                 </button>
             </a>
         </li>
     </ul>
 </div>
 </nav>
-
-
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -86,7 +85,14 @@
 
 
 <div class = "container-fluid" id ="contentDiv">
-
+    <noscript>
+    <div style="width: 100%; text-align: center; font-size: 24px;">
+    Javascript deaktiviert oder Sie sind offline. <br>
+    Diese seite funktioniert derzeit nur mit Javascript.
+    Mehr Informationen dazu (Englisch): <br>
+    <a href="http://www.enable-javascript.com/">www.enable-javascript.com</a>
+    <div>
+    </noscript>
 </div>
 
 </body>
@@ -116,9 +122,9 @@ $.getJSON("sitzverteilung", function(json) {
 });
 
 
-
 function loadDateSelection(){
-    //FIXME TODO make sure that is contentDiv is in inital position
+    //FIXME cache finished html
+    //FIXME TODO (animation) make sure that is contentDiv is in inital position
     //$('#contentDiv').addClass('moveIn')
     window.onresize = ()=>{
     }

@@ -15,15 +15,23 @@ from .models import PerformanceDate, Reservation
 from .emailHelper import *
 
 # Create your views here
+
+#
+def intro(request):
+    #with open('/index/templates/index.html', 'r') as f:
+    #    s = f.read()
+    #    return HttpResponse(s)
+    return render(request, 'welcomePage.html', {'seatReservationLocation': 'index',})
+
 #returns the first html page (the one on which you select which date)
 def index(request):
     #with open('/index/templates/index.html', 'r') as f:
     #    s = f.read()
     #    return HttpResponse(s)
-    return render(request, 'index.html', {})
+    return render(request, 'index.html')
 
 def dateselection(request):
-    return render(request, 'dateselection.html', {})
+    return render(request, 'dateselection.html')
 
 
 #Gets dates and returns HttpResponse with it.
@@ -56,7 +64,7 @@ def captcha(request):
 
 #loads after the date selection
 def sitzreservation(request):
-    return render(request, 'sitzreservation.html', {})
+    return render(request, 'sitzreservation.html')
 
 
 #send the data of the seats.
@@ -111,7 +119,7 @@ def reserved(request):
         [Reservation(email = email, seatName = seat, datum = date) for seat in seats]
     )
     #returns the reservationEntered.html file if captcha works
-    return render(request, 'reservationEntered.html', {})
+    return render(request, 'reservationEntered.html')
 
 
 

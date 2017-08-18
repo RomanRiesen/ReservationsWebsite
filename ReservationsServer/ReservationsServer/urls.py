@@ -16,11 +16,11 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.shortcuts import redirect
 
-import index
+import index, index.views
 
 
 urlpatterns = [
-    url(r'^$', lambda r:redirect('/index')),
+    url(r'^$', index.views.intro),
     url(r'^index/', include('index.urls')),
     url(r'^admin/', admin.site.urls),
 ]

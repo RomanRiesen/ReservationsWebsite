@@ -7,7 +7,6 @@
     <title>Theater Lerbermatt</title>
 
     <!-- Bootstrap -->
-    <link href="../static/bootstrap.min.css" rel="stylesheet" async defer></link>
     <link href="../static/style.css" rel="stylesheet" async defer></link>
 
 
@@ -18,9 +17,17 @@
             <div class = "fullWindowHeight">
                 <div class = " row" id = "aboutRow">
                     <div class = "col-sm-12">
+                        <div class="aboutText">
                         <h4 style = "font: 500 28px/1.0'Arizonia';">Das Gymnasium Lerbermatt präsentiert</h4>
                         <h1 id="theaterName">Theatername</h1>
                         <h4 id = "daten"><br>vom 32. Mai bis 0. Juni</h4>
+                        </div>
+                        <button class = "btn btn-secondary" onclick="window.scrollTo(0, window.innerHeight);">Informationen</button>
+                        <button class = "btn btn-primary" onclick="toReservationPage()">zur Reservation</button>
+                    </div>
+                </div>
+                <div class = "row" id = "headButtonRow">
+                    <div class = "col-sm-12">
                     </div>
                 </div>
                 </div>
@@ -41,7 +48,7 @@
                     <div class = "col-md-3">
                     </div>
                     <div class = "col-sm-12 col-md-6">
-                        <button class="btn btn-primary" onclick="location.href='http://menkoi.pythonanywhere.com/index/';">Zur Sitzreservation</button>
+                        <button class="btn btn-primary" onclick="toReservationPage()">Zur Sitzreservation</button>
                     </div>
                     <div class = "col-md-3">
                     </div>
@@ -50,16 +57,10 @@
             </div>
             </div>
 
-
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
-    <!-- GOAL: http://www.viko.net/en/ -->
+    <link href="../static/bootstrap.min.css" rel="stylesheet" async defer></link>
     <style>
     body {
         background-color: rgb(66,66,66);
@@ -71,13 +72,14 @@
     #aboutRow {
         margin-top: 5vw;
         padding-top: 2vw;
-        padding-bottom: 2vw;
+        padding-bottom: 3vw;
         background-color: rgba(0, 0, 0, 0.8);
         text-align: center;
-        color: white;
     }
 
+
     #content {
+        padding-top: 5vw;
         text-align: center;
         color: black;
     }
@@ -93,6 +95,11 @@
 
     #contentButton {
         padding-bottom: 2vw;
+    }
+
+    .aboutText {
+        color: white;
+        padding-bottom: 1vw;
     }
 
     .fullWindowHeight{
@@ -113,9 +120,10 @@
 
     </style>
     <link href='https://fonts.googleapis.com/css?family=Arizonia' rel='stylesheet' type='text/css'>
-
     <script>
-
+    function toReservationPage() {
+        window.location = "{{seatReservationLocation}}"
+    }
     </script>
 
 </body>
