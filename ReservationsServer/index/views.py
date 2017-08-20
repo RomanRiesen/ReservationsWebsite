@@ -83,14 +83,15 @@ def reserved(request):
         #vital data ommited
         return HttpResponse("Missing Values", status=400)
 
+    if seatsJson == "" or email == "" or date == "":
+        return HttpResponse("Empty Values", status=400)
+
     try:
         validate_email(request.POST.get("email", ""))
     except forms.ValidationError:
         return HttpResponse("Bad Email", status=400)
 
 
-    if seatsJson == "" or email == "" or date == "":
-        return HttpResponse("Empty Values", status=400)
 
     #FIXME captcha missing
 
