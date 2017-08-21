@@ -71,7 +71,7 @@ def sitzreservation(request):
 
 #send the data of the seats.
 def sitzverteilung(request):
-    with open('static/seatsORIGINAL.json', 'r') as f:
+    with open('../seatsORIGINAL.json', 'r') as f:
         s = f.read()
         return HttpResponse(s)
 
