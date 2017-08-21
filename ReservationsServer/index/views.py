@@ -71,7 +71,7 @@ def sitzreservation(request):
 
 #send the data of the seats.
 def sitzverteilung(request):
-    with open('../seatsORIGINAL.json', 'r') as f:
+    with open('static/seatsORIGINAL.json', 'r') as f:
         s = f.read()
         return HttpResponse(s)
 
@@ -132,7 +132,9 @@ def reserved(request):
             email = email,
             seatName = seat,
             datum = PerformanceDate.objects.filter(datum = date)[0],
-            reservation_hash = userHash) for seat in seats
+            reservation_hash = userHash
+            )
+         for seat in seats
          ]
     )
     #returns the reservationEntered.html file if captcha works
