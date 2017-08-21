@@ -3,8 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Roman Riesen">
+    <meta name="date" content="2017-08-21T20:49:37+02:00">
+    <!--fill in in django?! theater description-->
+    <meta name="description" lang="de" content="Reservieren Sie hier Ihre Plätze für {{theatre_name}}. Vom {{begin_date}} bis {{end_date}}!">
+    <meta name="keywords" lang="de" content="{{theatre_name}}, Theater, Lerbermatt, Reservation, Gymnasium, Vorstellung, Köniz, Aufführung, Plätze">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Theater Lerbermatt</title>
+    <title>Sitzreservation Lerbermatt</title>
 
     <!-- Bootstrap -->
     <link href="../static/css/bootstrap.min.css" rel="stylesheet" async defer></link>
@@ -20,7 +25,7 @@
                         <div class="aboutText">
                         <h4 style = "font: 500 28px/1.0'Arizonia';">Das Gymnasium Lerbermatt präsentiert</h4>
                         <h1 id="theaterName">Theatername</h1>
-                        <h4 id = "daten"><br>vom 32. Mai bis 0. Juni</h4>
+                        <h4 id = "daten">vom 32. Mai bis 0. Juni</h4>
                         </div>
                         <button class = "btn btn-secondary" onclick="window.scrollTo(0, window.innerHeight);">Informationen</button>
                         <button class = "btn btn-primary" onclick="toReservationPage()">zur Reservation</button>
