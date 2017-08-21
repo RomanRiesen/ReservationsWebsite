@@ -131,8 +131,10 @@ function createSeatSelection(text){
 
     draw()
 
-    window.onresize = ()=>{
-        setTimeout(draw, 10)
+    var windowFormat = window.width/window.height
+    window.onresize = function(){
+        if(window.width/window.height != windowFormat){
+        setTimeout(draw, 10)}
     }
 
 }
