@@ -19,6 +19,8 @@ function loadDateSelection(){
     window.onresize = ()=>{
     }
 
+    $('.flowButtons').addClass('hidden')
+
     if(!window.dateselection){
         //FIXME this is horrible #put in url via django templates?
         var newUrl = window.location.href+"dateselection"
@@ -30,8 +32,6 @@ function loadDateSelection(){
             success : function(text)
             {
                 $('#contentDiv').html(text)
-                $('.flowButtons').addClass('hidden')
-
                 $.getJSON("getdates", (dates)=>
                 {
                     //FIXME move into createDateButtons method ALSO I am using the displayed date as a key for the actual date, which is ugly.
