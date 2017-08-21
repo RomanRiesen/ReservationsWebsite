@@ -2,10 +2,12 @@ from django.views import generic
 from django.template import loader
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.template.loader import render_to_string
 from django.shortcuts import render
 
 from django.core.validators import validate_email
 from django import forms
+from django.utils.crypto import get_random_string
 
 import json
 from datetime import date
@@ -92,32 +94,46 @@ def reserved(request):
         return HttpResponse("Bad Email", status=400)
 
 
-
     #FIXME captcha missing
 
+
+    #FIXME create link better!!!
+    while True:
+        userHash = get_random_string(length=32)#about as many possible strings as atoms in the universe. so checking for uniqueness isn't entirely necessary. But still.
+        if (len(Reservation.objects.filter(reservation_hash = userHash)) is 0):
+            break
+
+    emailJson = render_to_string('confirmationEmail.json', {'confirmationLink': request.META['HTTP_HOST']+'/index/emailVerification/'+userHash})
+    print(emailJson)
+    emailObj = json.loads(emailJson)
     try:
         send_mail(
-        'Lalalal',
-        'Here is the message.',
-        'RomanRiesen@gmail.com',
-        ['roman.r97@gmx.ch'],
+        emailObj['subject'],
+        emailObj['text'],
+        emailObj['from'],
+        [email],
         fail_silently=False,
         )
     except ConnectionRefusedError:
         return HttpResponse("Email Failed", status=418)
 
 
-    #FIXME check if a seat is already reserved!
     seats = json.loads(seatsJson)
     for s in seats:
-        for obj in Reservation.objects.values():
-            if obj['seatName'] == s  and obj['datum'] == date:
+        #FIXME iterate over same seatNames, then compare PerformanceDates. But how to select PerformanceDate_datums I do not know
+        for obj in Reservation.objects.filter(datum__datum = date):
+            if obj.seatName == s:
                 return HttpResponse("Seats Unavailable", status=400)
 
 
     #insert new Reservation
     Reservation.objects.bulk_create(
-        [Reservation(email = email, seatName = seat, datum = date) for seat in seats]
+        [Reservation(
+            email = email,
+            seatName = seat,
+            datum = PerformanceDate.objects.filter(datum = date)[0],
+            reservation_hash = userHash) for seat in seats
+         ]
     )
     #returns the reservationEntered.html file if captcha works
     return render(request, 'reservationEntered.html')
@@ -125,9 +141,21 @@ def reserved(request):
 
 
 def getreservation(request, date):
-    dates = Reservation.objects.filter(datum = date)
+    dates = Reservation.objects.filter(datum__datum = date)
     reservedSeats = []
     for d in dates:
         reservedSeats.append(d.seatName)
     response = json.dumps(reservedSeats)
     return HttpResponse(response)
+
+
+def emailVerification(request, userHash):
+    print("emailVerification", userHash)
+    #set reservation_confirmed to true for all Reservations, where reservation_hash is the same.
+    for r in Reservation.objects.filter(reservation_hash = userHash):
+        if  r.reservation_confirmed:
+            return render(request, 'reservationConfirmation.html', {"alreadyReserved":"true"})
+        r.reservation_confirmed = True
+        #r.reservation_hash = ""
+        r.save()
+    return render(request, 'reservationConfirmation.html', {"alreadyReserved":"false"})

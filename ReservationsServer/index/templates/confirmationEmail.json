@@ -1,0 +1,5 @@
+{
+  "subject": "Reservation bestätigen",
+  "text": "Wir freuen uns über ihre Reservation der Sitze. Bitte klicken öffnen Sie den folgenden Link <a>{{confirmationLink}}</a>",
+  "from": "roman.r97@gmx.ch"
+}

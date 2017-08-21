@@ -1,3 +1,4 @@
+#index URLS
 from django.conf.urls import url
 from django.shortcuts import redirect
 from . import views
@@ -12,4 +13,5 @@ urlpatterns = [
     url(r'^sitzreservation$', views.sitzreservation),
     url(r'^getreservation/(?P<date>[\S\s]{0,50})/', views.getreservation),
     url(r'^reserved$', views.reserved),
+    url(r'^emailVerification/(?P<userHash>[\S\s]{0,254})/', views.emailVerification),
 ]

@@ -18,41 +18,48 @@ function loadDateSelection(){
     //$('#contentDiv').addClass('moveIn')
     window.onresize = ()=>{
     }
-    //FIXME this is horrible
-    var newUrl = window.location.href+"dateselection"
-    var request = $.ajax({
-        method: "GET",
-        url: newUrl,
-        cache: true,
-        //data: { date: date },
-        success : function(text)
-        {
-            $('#contentDiv').html(text)
-            $('.flowButtons').addClass('hidden')
 
-            $.getJSON("getdates", (dates)=>
+    if(!window.dateselection){
+        //FIXME this is horrible #put in url via django templates?
+        var newUrl = window.location.href+"dateselection"
+        var request = $.ajax({
+            method: "GET",
+            url: newUrl,
+            cache: true,
+            //data: { date: date },
+            success : function(text)
             {
-                //FIXME move into createDateButtons method
-                if (!window.selectedSeats){
-                    window.toActualDates = []
-                    window.selectedSeats = []
-                    for (var i = 0; i < dates.length; i++) {
-                        date = new Date(dates[i]).toLocaleDateString()
-                        //FIXME
-                        window.toActualDates[date] = dates[i]
-                        window.selectedSeats[date] = []
+                $('#contentDiv').html(text)
+                $('.flowButtons').addClass('hidden')
+
+                $.getJSON("getdates", (dates)=>
+                {
+                    //FIXME move into createDateButtons method ALSO I am using the displayed date as a key for the actual date, which is ugly.
+                    if (!window.selectedSeats){
+                        window.toActualDates = []
+                        window.selectedSeats = []
+                        for (var i = 0; i < dates.length; i++) {
+                            date = new Date(dates[i]).toLocaleDateString()
+                            //FIXME
+                            window.toActualDates[date] = dates[i]
+                            window.selectedSeats[date] = []
+                        }
                     }
-                }
-                createDateButtons()
+                    var html = createDateButtons()
+                    $("#dateField").html(html)
+                    window.dateselection = $('#contentDiv').html()
+                })
             }
+        })
+        request.fail(
+            console.log(request)
+            //ajaxFailedWarning(request, request.status)
         )
     }
+    else {
+        $('#contentDiv').html(window.dateselection)
+    }
 }
-)
-
-request.fail(
-    ajaxFailedWarning
-)}
 
 
 function createDateButtons() {
@@ -79,7 +86,7 @@ function createDateButtons() {
 
         id++
     })
-    $("#dateField").html(html)
+    return html
     //TODO
     //$("contentDiv").addClass('moveIn')
 }
@@ -104,7 +111,7 @@ function onDateButtonClick(id){
     })
 
     request.fail(
-        ajaxFailedWarning
+        //ajaxFailedWarning()
     );
 }
 

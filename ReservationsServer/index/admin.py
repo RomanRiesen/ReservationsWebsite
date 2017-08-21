@@ -8,14 +8,11 @@ from .models import PerformanceDate, Reservation
 @admin.register(PerformanceDate)
 class PerformanceDateAdmin(admin.ModelAdmin):
     list_display = ('datum', 'has_free_seats')
-    ordering = ('datum', 'has_free_seats', 'id')
-    def datum(self, obj):
-        return obj.datum
-
-    datum.admin_order_field = 'datum'
+    ordering = ('datum', 'has_free_seats')
 
 
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('datum', 'email', 'seatName', 'reservation_time')
-    ordering = ('datum',)
+
+    list_display = ('datum', 'email', 'seatName', 'reservation_time', 'reservation_confirmed')
+    #admin_order_field  = 'datum'
