@@ -129,8 +129,6 @@ function createSeatSelection(text){
 
     $('#continueButton').click(createSummarizingText)
 
-    $('#dateInfo').html(window.selectedDate)
-
     draw()
 
     window.onresize = ()=>{
@@ -192,6 +190,7 @@ function draw(){
         }
         //TODO
         //$('#contentDiv').toggleClass('moveIn')
+        $('#dateInfo').html(window.selectedDate)
         });
 }
 
